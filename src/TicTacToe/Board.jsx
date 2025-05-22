@@ -29,10 +29,14 @@ const Board = () => {
   const isWinner = Checkwinner();
 
   const handleClick = (index) => {
+    if(state[index] !== null) {
+      return;
+    }
     const copyState = [...state];
     copyState[index] = isXTurn ? "X" : "O";
     setState(copyState);
     setisXTurn(!isXTurn);
+  
   };
 
  const handleReset =() =>{
@@ -41,10 +45,12 @@ const Board = () => {
 
   return (
     <div className="board-container">
+      
       {isWinner ? (
         <> {isWinner} Won the Game!!!  <button onClick={handleReset}>Play Again</button></>
       ) : (
         <>
+          <h3>Player {isXTurn ? "X" : "O"} please move</h3>
           <div className="board-row">
             <Sqaure onClick={() => handleClick(0)} value={state[0]} />
             <Sqaure onClick={() => handleClick(1)} value={state[1]} />
